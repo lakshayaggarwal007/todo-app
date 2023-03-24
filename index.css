@@ -1,0 +1,51 @@
+.container{
+    margin-top: 20px;
+}
+
+
+#search-btn{
+    width: 80%;
+}
+
+.select{
+    border-color: black;
+    top: 7px;
+    border-radius: 2px;
+    
+}
+
+#add-btn{
+    width: 70%;
+    height: 100%;
+    text-align: center;
+    
+}
+
+
+.delete-btn{
+    width: 15%;
+    height: 10%;
+    
+}
+
+.edit-btn{
+    width: 15%;
+    height: 10%;
+   
+    
+}
+
+#main-div{
+    padding: 50px;
+}
+
+
+.inputname {
+    border: none;
+    background: transparent;
+}
+
+.date-time2 {
+    border: none;
+    background: transparent;
+}
