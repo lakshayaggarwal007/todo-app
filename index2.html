@@ -66,11 +66,11 @@
 data.map(r => {
  output += `<tr>
      <th scope="row" hidden>${r.id}</th>
-     <td><input type="text" value="${r.label}" size="20" class="inputname" id="${r.id}" onfocusout="myFunction()" disabled></td>
+     <td><input type="text" value="${r.label}" size="20" class="inputname" id="${r.id}" disabled></td>
      <td><input type="text" value="${r.value}" size="20" class="date-time2" id="${r.id}-date-time" disabled></td>
      <td>
          
-             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this)"></button>
+             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="reply_click(this.id)" id="${r.id}"></button>
              <button type="button" class="btn btn-outline-danger delete-btn" name ="delete-btn" ><img src="./1345874.png" alt="delete" width="20" onclick="deleteRow(this)"></button>    
              
              
@@ -97,7 +97,7 @@ data.map(r => {
      <td><input type="text" value="${r.value}" size="20" class="date-time2" id="${r.id}-date-time" disabled></td>
      <td>
          
-             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this)"></button>
+             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this) ; " id="${r.id}"></button>
              <button type="button" class="btn btn-outline-danger delete-btn" name ="delete-btn" ><img src="./1345874.png" alt="delete" width="20" onclick="deleteRow(this)"></button>    
              
              
@@ -167,26 +167,102 @@ document.getElementById("tbody").innerHTML =norecord;
 
 // delete data end    
 
+// edit data recent start
 
+
+
+function reply_click(clicked_id)
+  {
+
+    document.getElementById(`${clicked_id}`).disabled = false;
+    document.getElementById(`${clicked_id}-date-time`).disabled = false;
+    document.getElementById(clicked_id).focus();
+    console.log(clicked_id)
+
+    $( `#${clicked_id}`)
+  .focusout(function() {
+    
+    $( `#${clicked_id}` ).prop('disabled', true);
+    var val = document.getElementById(`${clicked_id}`).value
+    
+    objIndex = data.findIndex((obj => obj.id == clicked_id));
+    // if (objIndex == 0){
+    //   var index = 0;
+    // };
+    
+
+    data[objIndex].label = val;
+   
+    
+
+  });
+
+
+
+$( `#${clicked_id}-date-time`)
+  .focusout(function() {
+
+    $( `#${clicked_id}` ).prop('disabled', false);
+    $( `#${clicked_id}-date-time` ).prop('disabled', true);
+    var val2 = document.getElementById(`${clicked_id}-date-time`).value
+ 
+    objIndex = data.findIndex((obj => obj.id == clicked_id));
+    // if (objIndex == 0){
+    //   var index = 0;
+    // };
+   
+
+   
+    data[objIndex].value = val2;
+
+
+
+  });
+
+
+      // alert(clicked_id);
+  }
+
+// edit data recent end 
+ 
 // edit data start 
-
 
 function editRow(r){
     var i = r.parentNode.parentNode.parentNode.rowIndex;
     document.getElementById(`${i}`).disabled = false;
     document.getElementById(`${i}-date-time`).disabled = false;
-    console.log(i)
-    document.getElementById(i).focus();
-     data.filter(function (el)
-    {
-        if(el.id ==i){
-            document.getElementById(i).value = el.label; 
-        }
+    
+
+
+    if (document.getElementById("select").value == "recent"){
+      
+      
+      
+  
+      
+      // console.log(element_id);
+      // document.getElementById(i).focus();
+   
+
+
+    }else{
+
+
+      document.getElementById(i).focus();
+    }
+    
+
+
+    //  data.filter(function (el)
+    // {
+    //     {
+    //         document.getElementById(i).value = el.label; 
+    //     }
       
              
              
-    }
-    );
+    // }
+    // );
   
   //  edit-date-time-picker 
 
@@ -206,7 +282,18 @@ $( `#${i}`)
   .focusout(function() {
     
     $( `#${i}` ).prop('disabled', true);
+    var val = document.getElementById(`${i}`).value
     
+    objIndex = data.findIndex((obj => obj.id == i));
+    // if (objIndex == 0){
+    //   var index = 0;
+    // };
+    
+
+    data[objIndex].label = val;
+   
+    
+
   });
 
 
@@ -214,8 +301,21 @@ $( `#${i}`)
 $( `#${i}-date-time`)
   .focusout(function() {
 
-    $( `#${i}` ).prop('disabled', true);
+    $( `#${i}` ).prop('disabled', false);
     $( `#${i}-date-time` ).prop('disabled', true);
+    var val2 = document.getElementById(`${i}-date-time`).value
+ 
+    objIndex = data.findIndex((obj => obj.id == i));
+    // if (objIndex == 0){
+    //   var index = 0;
+    // };
+   
+
+   
+    data[objIndex].value = val2;
+
+
+
   });
 
 }
@@ -284,7 +384,7 @@ var tableHeaderRowCount = 1;
      <td><input type="text" value="${r.value}" size="20" class="date-time2" id="${r.id}-date-time" disabled  ></td>
      <td>
          
-             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this)"></button>
+             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this) ; " id="${r.id}"></button>
              <button type="button" class="btn btn-outline-danger delete-btn" name ="delete-btn" ><img src="./1345874.png" alt="delete" width="20" onclick="deleteRow(this)"></button>    
              
              
@@ -377,7 +477,7 @@ sorteddata.sort(function(a, b){return b.id - a.id});
      <td><input type="text" value="${r.value}" size="20" class="date-time2" id="${r.id}-date-time" disabled ></td>
      <td>
          
-             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this)"></button>
+             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" id="${r.id}" onClick=" reply_click(this.id)" ></button>
              <button type="button" class="btn btn-outline-danger delete-btn" name ="delete-btn" ><img src="./1345874.png" alt="delete" width="20" onclick="deleteRow(this)"></button>    
              
              
@@ -385,6 +485,8 @@ sorteddata.sort(function(a, b){return b.id - a.id});
    </tr>`
 })
 document.getElementById("tbody").innerHTML =output;
+// 
+
 
 if (data.length == 0) {
         
@@ -441,7 +543,7 @@ sorteddata.sort(function(a, b){return a.id - b.id});
      <td><input type="text" value="${r.value}" size="20" class="date-time2"  id="${r.id}-date-time" disabled ></td>
      <td>
          
-             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this)"></button>
+             <button type="button" class="btn btn-outline-warning edit-btn" name ="edit-btn"><img src="./edit.png" alt="delete" width="20" onclick="editRow(this) ;  " id="${r.id}"></button>
              <button type="button" class="btn btn-outline-danger delete-btn" name ="delete-btn" ><img src="./1345874.png" alt="delete" width="20" onclick="deleteRow(this)"></button>    
              
              
@@ -568,6 +670,9 @@ $('#date-time').datetimepicker({
 });
 
 });
+
+
+
 
 
 
